@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<br>
+	<div class="container">
+		<h1>Gerichte bearbeiten</h1>
+		<br>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Bestellnummer</th>
+					<th>Name</th>
+					<th>Beschreibung</th>
+				</tr>
+			</thead>
+			{%for gericht in gerichte %}
+				<tr>
+					<td>{{ gericht.id }}</td>
+					<td>{{ gericht.name }}</td>
+					<td>{{ gericht.beschreibung }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}
