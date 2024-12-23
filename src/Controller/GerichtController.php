@@ -63,11 +63,11 @@ class GerichtController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $da = $doctrine->getManager();
             $picture = $request->files->get('gericht')['picture'];
 
-            $pic_remove = isset($request->get('gericht')['removepicture']);
-            if ($pic_remove) {
+            if (isset($request->get('gericht')['removepicture'])) {
                 $gericht->setPicture(null);
             } else if ($picture) {
                 $pictureName = md5(uniqid()) . '.' . $picture->guessExtension();
