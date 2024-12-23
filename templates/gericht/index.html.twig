@@ -1,9 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+	{% for message in app.flashes('success') %}
+		<div class="container alert alert-success">
+			<h3>{{ message }}</h3>
+		</div>
+	{% endfor %}
+
+	{% for message in app.flashes('error') %}
+		<div class="container alert alert-danger">
+			<h3>{{ message }}</h3>
+		</div>
+	{% endfor %}
+
 	<br>
 	<div class="container">
-		<h1>Gerichte bearbeiten</h1>
+		<h1>Liste der Gerichte</h1>
 		<br>
 
 		<table class="table table-striped">
@@ -12,6 +25,9 @@
 					<th>Bestellnummer</th>
 					<th>Name</th>
 					<th>Beschreibung</th>
+					<th>Preis</th>
+					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			{%for gericht in gerichte %}
@@ -19,8 +35,16 @@
 					<td>{{ gericht.id }}</td>
 					<td>{{ gericht.name }}</td>
 					<td>{{ gericht.beschreibung }}</td>
+					<td>{{ gericht.preis }}</td>
+					<td>
+						<a href="{{ path('app_gericht.edit',{ id: gericht.id}) }}" class="btn btn-sm btn-primary">Editieren</a>
+					</td>
+					<td>
+						<a href="{{ path('app_gericht.delete',{ id: gericht.id}) }}" class="btn btn-sm btn-danger">Löschen</a>
+					</td>
 				</tr>
 			{% endfor %}
 		</table>
+		<a href="{{ path('app_gericht.create') }}" class="btn btn-primary">Gericht hinzufügen</a>
 	</div>
 {% endblock %}
