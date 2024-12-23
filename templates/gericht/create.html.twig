@@ -1,10 +1,53 @@
 {% extends 'base.html.twig' %}
 
+
 {% block body %}
+
 	<br>
 	<div class="container">
 		<h1>Gericht Hinzufügen</h1>
 		<br>
-		{{ form(gerichtForm) }}
+		{{ form_start(gerichtForm) }}
+		{{ form_row(gerichtForm.name) }}
+		<div class="form-group">
+        	{{ form_label(gerichtForm.picture) }}
+        	<div class="input-group">
+            	{{ form_widget(gerichtForm.picture, {'attr': {'id': 'picturefield'}}) }}
+            	<button type="button" class="btn btn-outline-danger ml-2" id="clearPictureField">
+                	Bild entfernen
+            	</button>
+        	</div>
+    	</div>
+		{{ form_row(gerichtForm.beschreibung) }}
+		{{ form_row(gerichtForm.preis) }}
+		{{ form_row(gerichtForm.removepicture) }}
+		{{ form_end(gerichtForm) }}
 	</div>
-{% endblock %}
+
+		{# to put the filename into bootstrap label #}
+		<script>
+				document.addEventListener('DOMContentLoaded', function() {
+					const fileInput = document.querySelector('.custom-file-input');
+					const fileLabel = document.querySelector('.custom-file-label');
+					const removePictureCeckbox = document.getElementById('gericht_removepicture');
+					if (fileInput) {
+						fileInput.addEventListener('change', function(event) {
+							const files = event.target.files;
+							if (files.length > 0) {
+								fileLabel.textContent = files[0].name;
+								removePictureCeckbox.checked = false;
+							}
+						});
+					}
+				});
+				document.getElementById('clearPictureField').addEventListener('click', function () {
+    			const fileInput = document.querySelector('.custom-file-input');
+				const fileLabel = document.querySelector('.custom-file-label');
+				const removePictureCeckbox = document.getElementById('gericht_removepicture');
+				fileInput.value = '';
+				fileLabel.textContent = 'Wähle ein Bild für das Rezept aus';
+				removePictureCeckbox.checked = true;
+				});
+		</script>
+
+	{% endblock %}
