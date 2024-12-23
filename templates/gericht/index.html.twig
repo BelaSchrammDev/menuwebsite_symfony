@@ -22,7 +22,7 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Bestellnummer</th>
+					<th style="width:150px;">Bestellnummer</th>
 					<th>Name</th>
 					<th>Beschreibung</th>
 					<th>Preis</th>
@@ -32,7 +32,11 @@
 			</thead>
 			{%for gericht in gerichte %}
 				<tr>
-					<td>{{ gericht.id }}</td>
+					<td>{{ gericht.id }}
+					{% if gericht.picture %}
+						<img style="padding-left:10px;width:100px;" src="{{ asset('img/recipes/' ~ gericht.picture) }}">
+					{% endif %}
+					</td>
 					<td>{{ gericht.name }}</td>
 					<td>{{ gericht.beschreibung }}</td>
 					<td>{{ gericht.preis }}</td>

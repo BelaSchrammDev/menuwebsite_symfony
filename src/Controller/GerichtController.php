@@ -33,6 +33,14 @@ class GerichtController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $da = $doctrine->getManager();
+
+            $picture = $request->files->get('gericht')['picture'];
+            if ($picture) {
+                $pictureName = md5(uniqid()) . '.' . $picture->guessExtension();
+                $picture->move($this->getParameter('recipes_directory'), $pictureName);
+                $newgericht->setPicture($pictureName);
+            }
+
             $da->persist($newgericht);
             $da->flush();
             $this->addFlash('success', 'Gericht ' . $newgericht->getName() . ' wurde angelegt');
