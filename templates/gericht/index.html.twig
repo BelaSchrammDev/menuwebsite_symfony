@@ -33,10 +33,13 @@
 			</thead>
 			{%for gericht in gerichte %}
 				<tr>
-					<td>{{ gericht.id }}
+					<td>
+					<div class="d-flex justify-content-between">
+					{{ gericht.id }}
 					{% if gericht.picture %}
 						<img style="padding-left:10px;width:100px;" src="{{ asset('img/recipes/' ~ gericht.picture) }}">
 					{% endif %}
+					</div>
 					</td>
 					<td>{{ gericht.name }}</td>
 					<td>{{ gericht.kategorie }}</td>
