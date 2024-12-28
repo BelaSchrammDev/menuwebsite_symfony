@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\GerichtRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 #[ORM\Entity(repositoryClass: GerichtRepository::class)]
 class Gericht
@@ -15,6 +16,9 @@ class Gericht
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
+
+    #[ORM\ManyToOne(targetEntity: Kategorie::class, inversedBy: 'gerichte')]
+    private ?Kategorie $kategorie = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $beschreibung = null;
@@ -74,6 +78,18 @@ class Gericht
     public function setPreis(?float $preis): static
     {
         $this->preis = $preis;
+
+        return $this;
+    }
+
+    public function getKategorie(): ?Kategorie
+    {
+        return $this->kategorie;
+    }
+
+    public function setKategorie(?Kategorie $kategorie): static
+    {
+        $this->kategorie = $kategorie;
 
         return $this;
     }
