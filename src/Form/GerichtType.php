@@ -34,7 +34,12 @@ class GerichtType extends AbstractType
             ])
             ->add('beschreibung')
             ->add('preis')
-            ->add('speichern', SubmitType::class)
+            ->add('save', SubmitType::class, [
+                'label' => 'Speichern',
+            ])
+            ->add('save_and_add', SubmitType::class, [
+                'label' => 'Speichern + Neues Gericht',
+            ])
         ;
 
         $builder->get('picture')

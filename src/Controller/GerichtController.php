@@ -28,6 +28,7 @@ class GerichtController extends AbstractController
     public function create(ManagerRegistry $doctrine, Request $request): Response
     {
         $newgericht = new Gericht();
+        /** @var Form $form */
         $form = $this->createForm(GerichtType::class, $newgericht);
         $form->handleRequest($request);
 
@@ -44,7 +45,8 @@ class GerichtController extends AbstractController
             $da->persist($newgericht);
             $da->flush();
             $this->addFlash('success', 'Gericht ' . $newgericht->getName() . ' wurde angelegt');
-            return $this->redirectToRoute('app_gericht.list');
+            if ($form->get('save_and_add')->isClicked()) return $this->redirectToRoute('app_gericht.create');
+            else return $this->redirectToRoute('app_gericht.list');
         }
 
         return $this->render('gericht/create.html.twig', [

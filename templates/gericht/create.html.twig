@@ -22,7 +22,16 @@
 		{{ form_row(gerichtForm.beschreibung) }}
 		{{ form_row(gerichtForm.preis) }}
 		{{ form_row(gerichtForm.removepicture) }}
-		{{ form_end(gerichtForm) }}
+		<div class="d-flex justify-content-end align-items-start gap-2" style="gap: 10px;">
+			{{ form_row(gerichtForm.save) }}
+	
+			{% if app.request.get('_route') == 'app_gericht.create' %}
+				{{ form_row(gerichtForm.save_and_add) }}
+			{% endif %}
+
+			<a href="{{ path('app_gericht.list') }}" class="btn btn-secondary">Abbrechen</a>
+		</div>		
+		{{ form_end(gerichtForm, { render_rest: false}) }}
 	</div>
 
 		{# to put the filename into bootstrap label #}
