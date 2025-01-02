@@ -28,10 +28,10 @@ class OrderController extends AbstractController
     }
 
     #[Route('/create/{id}', name: 'create')]
-    public function createOrder(Gericht $gericht, ManagerRegistry $doctrine, PlaceRepository $placeRepository): Response
+    public function createOrder(Gericht $gericht, ManagerRegistry $doctrine, CurrentPlace $current_place): Response
     {
         $order = new Order();
-        $place = $placeRepository->findOneBy(['name' => 'Tisch 1']);
+        $place = $current_place->getPlace();
         $order->setPlace($place);
         $order->setOrdernumber($gericht->getId());
         $order->setName($gericht->getName());

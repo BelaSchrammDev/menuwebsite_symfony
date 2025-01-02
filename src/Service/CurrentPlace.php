@@ -14,23 +14,28 @@ class CurrentPlace
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
+        session_start();
     }
 
     public function getPlaceId(): ?int
     {
-        $this->placeId = 4;
-        $_SESSION['place_id'] = 4;
         if ($this->placeId === null) {
             if (isset($_SESSION['place_id'])) {
                 $this->placeId = $_SESSION['place_id'];
             } else {
-                $place = $this->entityManager->getRepository(Place::class)->findOneBy([ 'name' => 'Tisch 4' ]);
+                $place = $this->entityManager->getRepository(Place::class)->findOneBy(['name' => 'Tisch 4']);
                 if ($place !== null) {
-                    $this->setPlaceId($place->getId());
+                    $this->placeId = $place->getId();
+                    $_SESSION['place_id'] = $place->getId();
                 }
             }
         }
         return $this->placeId;
+    }
+
+    public function getPlace(): ?Place
+    {
+        return $this->entityManager->getRepository(Place::class)->find($this->getPlaceId());
     }
 
     public function getPlaceName(): ?string
@@ -47,6 +52,7 @@ class CurrentPlace
     public function setPlaceId(int $placeId): static
     {
         $this->placeId = $placeId;
+        if (session_status() === PHP_SESSION_NONE) session_start();
         $_SESSION['place_id'] = $placeId;
         return $this;
     }
