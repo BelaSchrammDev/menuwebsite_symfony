@@ -14,6 +14,41 @@
 		</div>
 	{% endfor %}
 
-    <br>
+	{% set pricesum = 0 %}
+
+	<div class="container">
+	    <br>
+		<h2 class="text-center">Bestellung {{ place }}</h2>
+		<br>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Best.Nr.</th>
+					<th scope="col">Name</th>
+					<th scope="col">Preis</th>
+					<th scope="col">Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for order in ordersFromPlace %}
+					{% set pricesum = pricesum + order.price %}
+					<tr>
+						<td>{{ order.id }}</td>
+						<td>{{ order.name }}</td>
+						<td>{{ order.price }} €</td>
+						<td>{{ order.status }}</td>
+					</tr>
+				{% endfor %}
+				<tr>
+					<td></td>
+					<td>Summe gesamt</td>
+					<td>{{ pricesum }} €</td>
+					<td></td>
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
 
 {% endblock %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Gericht;
 use App\Entity\Order;
+use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,10 +16,13 @@ use Symfony\Component\Routing\Attribute\Route;
 class OrderController extends AbstractController
 {
     #[Route('/', name: 'list')]
-    public function index(): Response
+    public function index(OrderRepository $orders): Response
     {
+        $place = 'Tisch 1';
+        $ordersFromPlace = $orders->findBy(['place' => $place,]);
         return $this->render('order/index.html.twig', [
-            'controller_name' => 'OrderController',
+            'place' => $place,
+            'ordersFromPlace' => $ordersFromPlace,
         ]);
     }
 
