@@ -14,8 +14,8 @@ class Order
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $place = null;
+    #[ORM\ManyToOne(targetEntity: Place::class, inversedBy: 'orders')]
+    private ?Place $place = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ordernumber = null;
@@ -32,18 +32,6 @@ class Order
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getPlace(): ?string
-    {
-        return $this->place;
-    }
-
-    public function setPlace(?string $place): static
-    {
-        $this->place = $place;
-
-        return $this;
     }
 
     public function getOrdernumber(): ?string
@@ -90,6 +78,18 @@ class Order
     public function setStatus(?string $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getPlace(): ?Place
+    {
+        return $this->place;
+    }
+
+    public function setPlace(?Place $place): static
+    {
+        $this->place = $place;
 
         return $this;
     }

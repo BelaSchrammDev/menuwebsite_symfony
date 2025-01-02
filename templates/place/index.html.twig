@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<div class="container">
+		<br>
+		<h1>Tische</h1>
+		<br>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for place in places %}
+					<tr>
+						<td>{{ place.id }}</td>
+						<td>{{ place.name }}</td>
+						<td class="d-flex justify-content-end">
+							<a href="{{ path('app_place.delete', {'id': place.id}) }}">Entfernen</a>
+						</td>
+					</tr>
+				{% endfor %}
+				<tr>
+					<td></td>
+					<td colspan="2">
+						{{ form_start(placeForm) }}
+						<div class="d-flex justify-content-between align-items-start gap-2" style="gap: 10px;">
+							{{ form_widget(placeForm.name) }}
+							{{ form_row(placeForm.save) }}
+						</div>
+						{{ form_end(placeForm) }}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+	</div>
+
+{% endblock %}

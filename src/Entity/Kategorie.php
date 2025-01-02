@@ -78,4 +78,26 @@ class Kategorie
     {
         return $this->name;
     }
+
+    public function addGerichte(Gericht $gerichte): static
+    {
+        if (!$this->gerichte->contains($gerichte)) {
+            $this->gerichte->add($gerichte);
+            $gerichte->setKategorie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGerichte(Gericht $gerichte): static
+    {
+        if ($this->gerichte->removeElement($gerichte)) {
+            // set the owning side to null (unless already changed)
+            if ($gerichte->getKategorie() === $this) {
+                $gerichte->setKategorie(null);
+            }
+        }
+
+        return $this;
+    }
 }
