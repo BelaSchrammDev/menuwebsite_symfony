@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<!-- Playlist section -->
+	<section class="playlist-section spad">
+		<div class="container-fluid">
+			<div class="section-title">
+				<h2>Menukarte</h2>
+			</div>
+			<div class="container">
+				<ul class="playlist-filter controls">
+					<li class="control" data-filter=".Getränk">Getränke</li>
+					<li class="control" data-filter=".Vorspeise">Vorspeisen</li>
+					<li class="control" data-filter=".Hauptspeise">Hauptspeisen</li>
+					<li class="control" data-filter=".Nachspeise">Desserts</li>
+					<li class="control" data-filter="all">Alle Gerichte</li>
+				</ul>
+			</div>                                              
+			<div class="clearfix"></div>
+			<div class="row playlist-area">
+
+            {% for gericht in gerichte %}
+				<div class="mix col-lg-3 col-md-4 col-sm-6 {{ gericht.kategorie }}">
+					<div class="playlist-item">
+					    {% if gericht.picture %}
+						    <img src="{{ asset('img/recipes/' ~ gericht.picture) }}">
+					    {% endif %}
+                        <h5>{{ gericht.name }} - {{ '%.2f'|format(gericht.preis) }}€</h5>
+                        <p>{{ gericht.beschreibung }}</p>
+                        <p>BestNr. {{ gericht.id }}</p>
+					</div>
+				</div>
+            {% endfor %}
+			</div>
+		</div>
+	</section>
+	<!-- Playlist section end -->
+
+{% endblock %}
