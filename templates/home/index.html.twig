@@ -19,7 +19,7 @@
 									{{ gericht.kategorie }}</h2>
 								<p>{{ gericht.beschreibung }} - {{ '%.2f'|format(gericht.preis) }}€</p>
 								<a href="{{ path('app_menu') }}" class="site-btn">Menukarte</a>
-								<a href="#" class="site-btn sb-c2">Bestellen</a>
+								<a href="{{ path('app_order.create', { id: gericht.id }) }}" class="site-btn sb-c2">Bestellen</a>
 							</div>
 						</div>
 						<div class="col-lg-6">

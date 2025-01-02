@@ -28,6 +28,7 @@
                         <h5>{{ gericht.name }} - {{ '%.2f'|format(gericht.preis) }}€</h5>
                         <p>{{ gericht.beschreibung }}</p>
                         <p>BestNr. {{ gericht.id }}</p>
+						<a href="{{ path('app_order.create', { id: gericht.id }) }}" class="btn btn-outline-danger">Bestellen</a>
 					</div>
 				</div>
             {% endfor %}
