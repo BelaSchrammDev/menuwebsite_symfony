@@ -24,14 +24,59 @@
 		rel="stylesheet" href="{{ asset('css/slicknav.min.css')}}"/>
 
 		<!-- Main Stylesheets -->
-		<link
-		rel="stylesheet" href="{{ asset('css/style.css')}}"/>
+		<link rel="stylesheet" href="{{ asset('css/style.css')}}"/>
 
 
-	<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
+		<!-- DropDown Stylesheets -->
+		<style>
+			.dropdown {
+				position: relative;
+				display: inline-block;
+			}
+
+			.dropbtn {
+				background-color: #4CAF50;
+				color: white;
+				padding: 16px;
+				font-size: 16px;
+				border: none;
+				cursor: pointer;
+			}
+
+			.dropdown-content {
+				display: none;
+				position: absolute;
+				background-color: #f9f9f9;
+				min-width: 160px;
+				box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+				z-index: 1;
+			}
+
+			.dropdown-content a {
+				color: black;
+				padding: 12px 16px;
+				text-decoration: none;
+				display: block;
+			}
+
+			.dropdown-content a:hover {
+				background-color: #f1f1f1;
+			}
+
+			.dropdown:hover .dropdown-content {
+				display: block;
+			}
+
+			.dropdown:hover .dropbtn {
+				background-color: #3e8e41;
+			}
+		</style>
+
+
+		<!--[if lt IE 9]>
+						   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+						   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+					<![endif]-->
 
 	</head>
 	<body>
@@ -55,7 +100,19 @@
 					{% endif %}
 				</div>
 			</div>
+			<div class="dropdown">
+				<button class="dropbtn">{{ current_place.getPlaceName() }}</button>
+				<div class="dropdown-content">
+				{% for place in current_place.getAllPlaces() %}
+					<a href="{{ path('app_place.setcurrentplace', {'id': place.id}) }}">{{ place.name }}</a>
+				{% endfor %}
+				</div>
+			</div>
+
 			<ul class="main-menu">
+				<li class="text-light">
+					{{ current_place.getPlaceName() }}
+				</li>
 				<li>
 					<a href="{{ path('app_home')}}">Willkommen</a>
 				</li>

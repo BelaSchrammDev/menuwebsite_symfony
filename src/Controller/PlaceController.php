@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Place;
 use App\Repository\PlaceRepository;
+use App\Service\CurrentPlace;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,6 +47,14 @@ class PlaceController extends AbstractController
             'places' => $places,
             'placeForm' => $form->createView()
         ]);
+    }
+
+    #[Route('/setcurrentplace/{id}', name: 'setcurrentplace')]
+    public function setcurrentplace($id, Request $request, CurrentPlace $current_place): Response
+    {
+        $current_place->setPlaceId($id);
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
     }
 
     #[Route('/delete/{id}', name: 'delete')]

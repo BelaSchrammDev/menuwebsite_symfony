@@ -7,6 +7,9 @@ parameters:
     recipes_directory: '%kernel.project_dir%/public/img/recipes'
 
 services:
+    App\Service\CurrentPlace:
+        arguments:
+            - '@currentplace'
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.

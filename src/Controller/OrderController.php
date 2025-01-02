@@ -6,6 +6,7 @@ use App\Entity\Gericht;
 use App\Entity\Order;
 use App\Repository\OrderRepository;
 use App\Repository\PlaceRepository;
+use App\Service\CurrentPlace;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,12 +18,11 @@ use Symfony\Component\Routing\Attribute\Route;
 class OrderController extends AbstractController
 {
     #[Route('/', name: 'list')]
-    public function index(OrderRepository $orders, PlaceRepository $placeRepository): Response
+    public function index(OrderRepository $orders, PlaceRepository $placeRepository, CurrentPlace $currentPlace): Response
     {
-        $place = $placeRepository->findOneBy(['name' => 'Tisch 1']);
-        $ordersFromPlace = $orders->findBy(['place' => $place->getId(),]);
+        $ordersFromPlace = $orders->findBy(['place' => $currentPlace->getPlaceId(),]);
         return $this->render('order/index.html.twig', [
-            'place' => $place->getName(),
+            'place' => $currentPlace->getPlaceName(),
             'ordersFromPlace' => $ordersFromPlace,
         ]);
     }
