@@ -23,6 +23,7 @@ security:
                 default_target_path: app_gericht.list # Route after login
             logout:
                 path: app_logout
+                invalidate_session: false
                 # where to redirect after logout
                 # target: app_any_route
 

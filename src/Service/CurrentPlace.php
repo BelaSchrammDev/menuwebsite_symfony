@@ -14,7 +14,7 @@ class CurrentPlace
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) session_start();
     }
 
     public function getPlaceId(): ?int
@@ -23,7 +23,7 @@ class CurrentPlace
             if (isset($_SESSION['place_id'])) {
                 $this->placeId = $_SESSION['place_id'];
             } else {
-                $place = $this->entityManager->getRepository(Place::class)->findOneBy(['name' => 'Tisch 4']);
+                $place = $this->entityManager->getRepository(Place::class)->findOneBy([]);
                 if ($place !== null) {
                     $this->placeId = $place->getId();
                     $_SESSION['place_id'] = $place->getId();
