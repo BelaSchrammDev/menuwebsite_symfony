@@ -17,8 +17,9 @@
 	{% set pricesum = 0 %}
 
 	<div class="container">
-	    <br>
-		<h2 class="text-center">Bestellung von {{ place }}</h2>
+		<br>
+		<h2 class="text-center">Bestellung von
+			{{ place }}</h2>
 		<br>
 
 		<table class="table table-striped">
@@ -36,14 +37,30 @@
 					<tr>
 						<td>{{ order.id }}</td>
 						<td>{{ order.name }}</td>
-						<td>{{ order.price }} €</td>
-						<td>{{ order.status }}</td>
+						<td>{{ order.price }}€</td>
+						{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+							<td>
+								<div class="dropdown show">
+									<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										{{ order.status }}
+									</a>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<a class="dropdown-item" href="{{ path('app_order.change_status', {id: order.id, newstatus: 'offen'}) }}">{{ 'offen' }}</a>
+										<a class="dropdown-item" href="{{ path('app_order.change_status', {id: order.id, newstatus: 'fertig'}) }}">{{ 'fertig' }}</a>
+										<a class="dropdown-item" href="{{ path('app_order.change_status', {id: order.id, newstatus: 'archiv'}) }}">{{ 'archiv' }}</a>
+									</div>
+								</div>
+							</td>
+						{% else %}
+							<td>{{ order.status }}</td>
+						{% endif %}
 					</tr>
 				{% endfor %}
 				<tr>
 					<td></td>
 					<td>Summe gesamt</td>
-					<td>{{ pricesum }} €</td>
+					<td>{{ pricesum }}
+						€</td>
 					<td></td>
 				</tr>
 			</tbody>

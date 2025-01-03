@@ -47,15 +47,14 @@ class OrderController extends AbstractController
         return $this->redirectToRoute('app_menu');
     }
 
-    #[Route('/status/{id},{status}', name: 'change_status')]
+    #[Route('/status/{id},{newstatus}', name: 'change_status')]
     public function changeStatus(Order $order, $newstatus, ManagerRegistry $doctrine): Response
     {
         $em = $doctrine->getManager();
         $order->setStatus($newstatus);
-        // $em->persist($order);
         $em->flush();
 
-        $this->addFlash('success', 'Status wurde auf ' . $newstatus . ' geändert.');
+        $this->addFlash('success', 'Best.Nr. ' . $order->getId() . ' : Status wurde auf ' . $newstatus . ' geändert.');
 
         return $this->redirectToRoute('app_order.list');
     }
