@@ -58,4 +58,16 @@ class OrderController extends AbstractController
 
         return $this->redirectToRoute('app_order.list');
     }
+
+    #[Route('/delete/{id}', name: 'delete')]
+    public function deleteOrder(Order $order, ManagerRegistry $doctrine): Response
+    {
+        $em = $doctrine->getManager();
+        $em->remove($order);
+        $em->flush();
+
+        $this->addFlash('success', 'Best.Nr. ' . $order->getId() . ' wurde gelöscht.');
+
+        return $this->redirectToRoute('app_order.list');
+    }
 }

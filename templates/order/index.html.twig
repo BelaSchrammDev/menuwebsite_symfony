@@ -29,6 +29,9 @@
 					<th scope="col">Name</th>
 					<th scope="col">Preis</th>
 					<th scope="col">Status</th>
+					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+						<th scope="col">Aktion</th>
+					{% endif %}
 				</tr>
 			</thead>
 			<tbody>
@@ -51,6 +54,9 @@
 									</div>
 								</div>
 							</td>
+							<td>
+								<a href="{{ path('app_order.delete', {id: order.id}) }}" class="btn btn-danger">Löschen</a>
+							</td>
 						{% else %}
 							<td>{{ order.status }}</td>
 						{% endif %}
@@ -62,6 +68,9 @@
 					<td>{{ pricesum }}
 						€</td>
 					<td></td>
+					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+						<td></td>
+					{% endif %}
 				</tr>
 			</tbody>
 
