@@ -7,37 +7,47 @@
 		<h1>Tische</h1>
 		<br>
 
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Name</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for place in places %}
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
 					<tr>
-						<td>{{ place.id }}</td>
-						<td>{{ place.name }}</td>
-						<td class="d-flex justify-content-end">
-							<a href="{{ path('app_place.delete', {'id': place.id}) }}">Entfernen</a>
+						<th>Id</th>
+						<th>Name</th>
+						<th class="d-flex justify-content-end w-auto">Aktionen</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for place in places|sort((a, b) => a.name <=> b.name) %}
+						<tr>
+							<td>{{ place.id }}</td>
+							<td>{{ place.name }}</td>
+							<td class="d-flex justify-content-end w-auto">
+								{% if place.orders is empty %}
+									<a href="{{ path('app_place.delete', {'id': place.id}) }}">
+									Tisch entfernen
+									</a>
+								{% else %}
+									<a href="{{ path('app_order.list', {'place': place.id}) }}">
+									{{ place.orders|length }} Bestellung(en) vorhanden
+									</a>
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+					<tr>
+						<td></td>
+						<td colspan="2">
+							{{ form_start(placeForm) }}
+							<div class="d-flex justify-content-between align-items-start" style="gap: 10px;">
+								{{ form_widget(placeForm.name) }}
+								{{ form_row(placeForm.save) }}
+							</div>
+							{{ form_end(placeForm) }}
 						</td>
 					</tr>
-				{% endfor %}
-				<tr>
-					<td></td>
-					<td colspan="2">
-						{{ form_start(placeForm) }}
-						<div class="d-flex justify-content-between align-items-start gap-2" style="gap: 10px;">
-							{{ form_widget(placeForm.name) }}
-							{{ form_row(placeForm.save) }}
-						</div>
-						{{ form_end(placeForm) }}
-					</td>
-				</tr>
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
 
 
 	</div>

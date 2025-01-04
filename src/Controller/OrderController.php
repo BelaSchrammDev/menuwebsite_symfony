@@ -17,9 +17,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class OrderController extends AbstractController
 {
-    #[Route('/', name: 'list')]
-    public function index(OrderRepository $orders, PlaceRepository $placeRepository, CurrentPlace $currentPlace): Response
+    #[Route('/{place}', name: 'list', defaults: ['place' => '0'])]
+    public function index($place, OrderRepository $orders, PlaceRepository $placeRepository, CurrentPlace $currentPlace): Response
     {
+        if ($place != 0) {
+            $currentPlace->setPlaceId($place);
+        }
         $ordersFromPlace = $orders->findBy(['place' => $currentPlace->getPlaceId(),]);
         return $this->render('order/index.html.twig', [
             'place' => $currentPlace->getPlaceName(),

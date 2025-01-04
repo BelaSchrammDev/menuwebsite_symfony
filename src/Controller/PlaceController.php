@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class PlaceController extends AbstractController
 {
     #[Route('/', name: 'list')]
-    public function index(Request $request, PlaceRepository $placesrepo, ManagerRegistry $doctrine): Response
+    public function listAllPlaces(Request $request, PlaceRepository $placesrepo, ManagerRegistry $doctrine): Response
     {
         $form = $this->createFormBuilder()
             ->add('name', TextType::class, [
