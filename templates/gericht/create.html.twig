@@ -5,59 +5,64 @@
 
 	<br>
 	<div class="container">
-		<h1>Gericht Hinzufügen</h1>
+		{% if app.request.get('_route') == 'app_gericht.create' %}
+			<h1>Gericht Hinzufügen</h1>
+		{% else %}
+			<h1>Gericht bearbeiten</h1>
+		{% endif %}
+
 		<br>
 		{{ form_start(gerichtForm) }}
 		{{ form_row(gerichtForm.name) }}
 		{{ form_row(gerichtForm.kategorie) }}
 		<div class="form-group">
-        	{{ form_label(gerichtForm.picture) }}
-        	<div class="input-group">
-            	{{ form_widget(gerichtForm.picture, {'attr': {'id': 'picturefield'}}) }}
-            	<button type="button" class="btn btn-outline-danger ml-2" id="clearPictureField">
-                	Bild entfernen
-            	</button>
-        	</div>
-    	</div>
+			{{ form_label(gerichtForm.picture) }}
+			<div class="input-group">
+				{{ form_widget(gerichtForm.picture, {'attr': {'id': 'picturefield'}}) }}
+				<button type="button" class="btn btn-outline-danger ml-2" id="clearPictureField">
+					Bild entfernen
+				</button>
+			</div>
+		</div>
 		{{ form_row(gerichtForm.beschreibung) }}
 		{{ form_row(gerichtForm.preis) }}
 		{{ form_row(gerichtForm.removepicture) }}
 		<div class="d-flex justify-content-end align-items-start gap-2" style="gap: 10px;">
 			{{ form_row(gerichtForm.save) }}
-	
+
 			{% if app.request.get('_route') == 'app_gericht.create' %}
 				{{ form_row(gerichtForm.save_and_add) }}
 			{% endif %}
 
 			<a href="{{ path('app_gericht.list') }}" class="btn btn-secondary">Abbrechen</a>
-		</div>		
+		</div>
 		{{ form_end(gerichtForm, { render_rest: false}) }}
 	</div>
 
-		{# to put the filename into bootstrap label #}
-		<script>
-				document.addEventListener('DOMContentLoaded', function() {
-					const fileInput = document.querySelector('.custom-file-input');
-					const fileLabel = document.querySelector('.custom-file-label');
-					const removePictureCeckbox = document.getElementById('gericht_removepicture');
-					if (fileInput) {
-						fileInput.addEventListener('change', function(event) {
-							const files = event.target.files;
-							if (files.length > 0) {
-								fileLabel.textContent = files[0].name;
-								removePictureCeckbox.checked = false;
+	{# to put the filename into bootstrap label #}
+	 <script>
+						document.addEventListener('DOMContentLoaded', function() {
+							const fileInput = document.querySelector('.custom-file-input');
+							const fileLabel = document.querySelector('.custom-file-label');
+							const removePictureCeckbox = document.getElementById('gericht_removepicture');
+							if (fileInput) {
+								fileInput.addEventListener('change', function(event) {
+									const files = event.target.files;
+									if (files.length > 0) {
+										fileLabel.textContent = files[0].name;
+										removePictureCeckbox.checked = false;
+									}
+								});
 							}
 						});
-					}
-				});
-				document.getElementById('clearPictureField').addEventListener('click', function () {
-    			const fileInput = document.querySelector('.custom-file-input');
-				const fileLabel = document.querySelector('.custom-file-label');
-				const removePictureCeckbox = document.getElementById('gericht_removepicture');
-				fileInput.value = '';
-				fileLabel.textContent = 'Wähle ein Bild für das Rezept aus';
-				removePictureCeckbox.checked = true;
-				});
-		</script>
+						document.getElementById('clearPictureField').addEventListener('click', function () {
+		    			const fileInput = document.querySelector('.custom-file-input');
+						const fileLabel = document.querySelector('.custom-file-label');
+						const removePictureCeckbox = document.getElementById('gericht_removepicture');
+						fileInput.value = '';
+						fileLabel.textContent = 'Wähle ein Bild für das Rezept aus';
+						removePictureCeckbox.checked = true;
+						});
+				</script>
 
-	{% endblock %}
+{% endblock %}
