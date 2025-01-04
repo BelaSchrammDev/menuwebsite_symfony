@@ -11,17 +11,15 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Id</th>
-						<th>Name</th>
+						<th class="w-100">Name</th>
 						<th class="d-flex justify-content-end w-auto">Aktionen</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for place in places|sort((a, b) => a.name <=> b.name) %}
 						<tr>
-							<td>{{ place.id }}</td>
-							<td>{{ place.name }}</td>
-							<td class="d-flex justify-content-end w-auto">
+							<td class="w-100">{{ place.name }}</td>
+							<td class="d-flex justify-content-end w-auto text-nowrap">
 								{% if place.orders is empty %}
 									<a href="{{ path('app_place.delete', {'id': place.id}) }}">
 									Tisch entfernen
@@ -35,7 +33,6 @@
 						</tr>
 					{% endfor %}
 					<tr>
-						<td></td>
 						<td colspan="2">
 							{{ form_start(placeForm) }}
 							<div class="d-flex justify-content-between align-items-start" style="gap: 10px;">

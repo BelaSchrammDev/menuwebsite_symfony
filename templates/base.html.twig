@@ -26,7 +26,7 @@
 		<![endif]-->
 
 	</head>
-	<body>
+	<body class="d-flex flex-column min-vh-100">
 		<!-- Page Preloder -->
 		<div id="preloder">
 			<div class="loader"></div>
@@ -75,8 +75,11 @@
 				</li>
 				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 					<li>
-						<a href="#">Mitarbeiter</a>
+						<a href="#">Interner Bereich</a>
 						<ul class="sub-menu">
+							<li>
+								<a href="{{ path('app_staff.list') }}">Mitarbeiter</a>
+							</li>
 							<li>
 								<a href="{{ path('app_place.list') }}">Tische</a>
 							</li>
@@ -86,9 +89,6 @@
 							<li>
 								<a href="{{ path('app_gericht.create') }}">Gericht anlegen</a>
 							</li>
-							<li>
-								<a href="{{ path('app_register') }}" class="register">Mitarbeiter registrieren</a>
-							</li>
 						</ul>
 					</li>
 				{% endif %}
@@ -96,10 +96,12 @@
 		</header>
 		<!-- Header section end -->
 
+		<div class="flex-grow-1">
 		{% block body %}{% endblock %}
+		</div>
 
 		<!-- Footer section -->
-		<footer class="footer-section fixed-bottom">
+		<footer class="footer-section">
 			<div class="container">
 				<div class="row">
 					<div class="col-xl-6 col-lg-7 order-lg-2">

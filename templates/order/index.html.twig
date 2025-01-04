@@ -22,61 +22,61 @@
 			{{ place }}</h2>
 		<br>
 
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th scope="col">Best.Nr.</th>
-					<th scope="col">Name</th>
-					<th scope="col">Preis</th>
-					<th scope="col">Status</th>
-					<th scope="col">Aktion</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for order in ordersFromPlace %}
-					{% if order.status == 'offen' or order.status == 'fertig' %}
-						{% set pricesum = pricesum + order.price %}
-						<tr>
-							<td>{{ order.id }}</td>
-							<td>{{ order.name }}</td>
-							<td>{{ order.price }}€</td>
-							{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-								<td>
-									<div class="dropdown show">
-										<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											{{ order.status }}
-										</a>
-										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-											<a class="dropdown-item" href="{{ path('app_order.change_status', {id: order.id, newstatus: 'offen'}) }}">{{ 'offen' }}</a>
-											<a class="dropdown-item" href="{{ path('app_order.change_status', {id: order.id, newstatus: 'fertig'}) }}">{{ 'fertig' }}</a>
-											<a class="dropdown-item" href="{{ path('app_order.change_status', {id: order.id, newstatus: 'archiv'}) }}">{{ 'archiv' }}</a>
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Best.Nr.</th>
+						<th scope="col" class="w-100">Name</th>
+						<th class="text-center" scope="col">Preis</th>
+						<th class="text-center" scope="col">Status</th>
+						<th scope="col" class="d-flex justify-content-end w-auto" style="width: fit-content;">Aktionen</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for order in ordersFromPlace %}
+						{% if order.status == 'offen' or order.status == 'fertig' %}
+							{% set pricesum = pricesum + order.price %}
+							<tr>
+								<td>{{ order.id }}</td>
+								<td class="w-100">{{ order.name }}</td>
+								<td class="text-nowrap text-right">{{ '%.2f'|format(order.price) }}
+									EUR</td>
+								{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+									<td>
+										<div class="dropdown show">
+											<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												{{ order.status }}
+											</a>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+												<a class="dropdown-item" href="{{ path('app_order.change_status', {id: order.id, newstatus: 'offen'}) }}">{{ 'offen' }}</a>
+												<a class="dropdown-item" href="{{ path('app_order.change_status', {id: order.id, newstatus: 'fertig'}) }}">{{ 'fertig' }}</a>
+												<a class="dropdown-item" href="{{ path('app_order.change_status', {id: order.id, newstatus: 'archiv'}) }}">{{ 'archiv' }}</a>
+											</div>
 										</div>
-									</div>
-								</td>
-							{% else %}
-								<td>{{ order.status }}</td>
-							{% endif %}
-							<td>
-								{% if order.status == 'offen' %}
-									<a href="{{ path('app_order.delete', {id: order.id}) }}" class="btn btn-outline-danger btn-sm">Löschen</a>
+									</td>
+								{% else %}
+									<td>{{ order.status }}</td>
 								{% endif %}
-							</td>
-						</tr>
-					{% endif %}
-				{% endfor %}
-				<tr>
-					<td></td>
-					<td>Summe gesamt</td>
-					<td>{{ pricesum }}
-						€</td>
-					<td></td>
-					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+								<td class="d-flex justify-content-end w-auto" style="width: fit-content;">
+									{% if order.status == 'offen' %}
+										<a href="{{ path('app_order.delete', {id: order.id}) }}" class="btn btn-outline-danger btn-sm">Löschen</a>
+									{% endif %}
+								</td>
+							</tr>
+						{% endif %}
+					{% endfor %}
+					<tr class="font-weight-bold">
 						<td></td>
-					{% endif %}
-				</tr>
-			</tbody>
-
-		</table>
+						<td>Summe</td>
+						<td class="text-nowrap text-right">{{ '%.2f'|format(pricesum) }}
+							EUR</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 
 {% endblock %}

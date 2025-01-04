@@ -38,7 +38,8 @@ security:
     access_control:
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/gericht, roles: ROLE_USER }
-        - { path: ^/register, roles: ROLE_USER }
+        - { path: ^/staff, roles: ROLE_USER }
+        - { path: ^/register, roles: ROLE_ADMIN }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
