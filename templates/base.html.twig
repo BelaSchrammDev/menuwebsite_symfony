@@ -55,17 +55,6 @@
 					</div>
 				{% endif %}
 			</div>
-			<div class="header-right">
-				<div class="user-panel mt-2">
-					{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-						<a href="{{ path('app_login') }}" class="register">Login</a>
-					{% endif %}
-					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-						<a href="{{ path('app_logout') }}" class="register">Ausloggen</a>
-					{% endif %}
-				</div>
-			</div>
-
 			<ul class="main-menu">
 				<li>
 					<a href="{{ path('app_home')}}">Willkommen</a>
@@ -98,6 +87,17 @@
 						</ul>
 					</li>
 				{% endif %}
+				{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+				<li>
+					<a href="{{ path('app_login') }}" class="text-success">Login</a>
+				</li>
+				{% endif %}
+				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+				<li>
+					<a href="{{ path('app_logout') }}" class="text-danger">Ausloggen</a>
+				</li>
+				{% endif %}
+
 			</ul>
 		</header>
 		<!-- Header section end -->
@@ -190,23 +190,6 @@
 							<a href="https://themeslab.org/" target="_blank">Themeslab</a>
 							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						</div>
-						<div class="social-links">
-							<a href="">
-								<i class="fa fa-instagram"></i>
-							</a>
-							<a href="">
-								<i class="fa fa-pinterest"></i>
-							</a>
-							<a href="">
-								<i class="fa fa-facebook"></i>
-							</a>
-							<a href="">
-								<i class="fa fa-twitter"></i>
-							</a>
-							<a href="">
-								<i class="fa fa-youtube"></i>
-							</a>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -214,8 +197,7 @@
 		<!-- Footer section end -->
 
 	<!--====== Javascripts & Jquery ======-->
-		 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-		 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		 <script src="{{ asset('js/popper.min.js')}}"></script>
 		 <script src="{{ asset('js/jquery-3.2.1.min.js')}}"></script>
 		 <script src="{{ asset('js/bootstrap.min.js')}}"></script>
 		 <script src="{{ asset('js/jquery.slicknav.min.js')}}"></script>

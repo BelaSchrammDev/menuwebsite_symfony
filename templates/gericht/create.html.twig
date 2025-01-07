@@ -5,11 +5,13 @@
 
 	<br>
 	<div class="container">
+			<h3>
 		{% if app.request.get('_route') == 'app_gericht.create' %}
-			<h1>Gericht Hinzufügen</h1>
+			Gericht hinzufügen
 		{% else %}
-			<h1>Gericht bearbeiten</h1>
+			Gericht bearbeiten
 		{% endif %}
+			</h3>
 
 		<br>
 		{{ form_start(gerichtForm) }}
@@ -27,7 +29,7 @@
 		{{ form_row(gerichtForm.beschreibung) }}
 		{{ form_row(gerichtForm.preis) }}
 		{{ form_row(gerichtForm.removepicture) }}
-		<div class="d-flex justify-content-end align-items-start gap-2" style="gap: 10px;">
+		<div class="d-flex justify-content-end align-items-start gap-2 flex-wrap" style="gap: 10px;">
 			{{ form_row(gerichtForm.save) }}
 
 			{% if app.request.get('_route') == 'app_gericht.create' %}
@@ -41,28 +43,28 @@
 
 	{# to put the filename into bootstrap label #}
 	 <script>
-						document.addEventListener('DOMContentLoaded', function() {
-							const fileInput = document.querySelector('.custom-file-input');
-							const fileLabel = document.querySelector('.custom-file-label');
-							const removePictureCeckbox = document.getElementById('gericht_removepicture');
-							if (fileInput) {
-								fileInput.addEventListener('change', function(event) {
-									const files = event.target.files;
-									if (files.length > 0) {
-										fileLabel.textContent = files[0].name;
-										removePictureCeckbox.checked = false;
-									}
-								});
-							}
-						});
-						document.getElementById('clearPictureField').addEventListener('click', function () {
-		    			const fileInput = document.querySelector('.custom-file-input');
-						const fileLabel = document.querySelector('.custom-file-label');
-						const removePictureCeckbox = document.getElementById('gericht_removepicture');
-						fileInput.value = '';
-						fileLabel.textContent = 'Wähle ein Bild für das Rezept aus';
-						removePictureCeckbox.checked = true;
-						});
-				</script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const fileInput = document.querySelector('.custom-file-input');
+			const fileLabel = document.querySelector('.custom-file-label');
+			const removePictureCeckbox = document.getElementById('gericht_removepicture');
+			if (fileInput) {
+				fileInput.addEventListener('change', function(event) {
+					const files = event.target.files;
+					if (files.length > 0) {
+						fileLabel.textContent = files[0].name;
+						removePictureCeckbox.checked = false;
+					}
+				});
+			}
+		});
+		document.getElementById('clearPictureField').addEventListener('click', function () {
+		const fileInput = document.querySelector('.custom-file-input');
+		const fileLabel = document.querySelector('.custom-file-label');
+		const removePictureCeckbox = document.getElementById('gericht_removepicture');
+		fileInput.value = '';
+		fileLabel.textContent = 'Wähle ein Bild für das Rezept aus';
+		removePictureCeckbox.checked = true;
+		});
+	</script>
 
 {% endblock %}
