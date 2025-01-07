@@ -34,20 +34,10 @@
 
 		<!-- Header section -->
 		<header class="header-section clearfix">
-			<a href="{{path('app_home')}}" class="site-logo">
-				<img src="{{asset('img/logo.png')}}" alt="">
-			</a>
-			<div class="header-right">
-				<div class="user-panel">
-					{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-						<a href="{{ path('app_login') }}" class="register">Login</a>
-					{% endif %}
-					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-						<a href="{{ path('app_logout') }}" class="register">Ausloggen</a>
-					{% endif %}
-				</div>
-			</div>
 			<div class="site-logo">
+				<a href="{{path('app_home')}}">
+					<img src="{{asset('img/logo.png')}}" alt="" class="mb-2">
+				</a>
 				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 					<div class="dropdown show">
 						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -64,6 +54,16 @@
 					<h3>{{ current_place.getPlaceName() }}</h3>
 					</div>
 				{% endif %}
+			</div>
+			<div class="header-right">
+				<div class="user-panel mt-2">
+					{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+						<a href="{{ path('app_login') }}" class="register">Login</a>
+					{% endif %}
+					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+						<a href="{{ path('app_logout') }}" class="register">Ausloggen</a>
+					{% endif %}
+				</div>
 			</div>
 
 			<ul class="main-menu">
