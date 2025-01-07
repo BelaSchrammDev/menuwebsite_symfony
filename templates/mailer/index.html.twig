@@ -1,34 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-	<br>
-	<section class="contact-section">
-		<div class="container-fluid">
-			<div class="row">
-				<div
-					class="col-lg-6 p-0">
-					<!-- Map -->
-					<div class="map">
-						<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10784.188505644011!2d19.053119335158936!3d47.48899529453826!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1543907528304" style="border:0" allowfullscreen></iframe>
-					</div>
-				</div>
-				<div class="col-lg-6 p-0">
-					<div class="contact-warp">
-						<div class="section-title mb-0">
-							<h3>Eine Nachricht an den Kellner senden</h3>
-						</div>
-						<p>Wir freuen uns auf Ihre Nachricht.
-						</p>
-						{{ form_start(emailForm) }}
-						{{ form_row(emailForm.content) }}
-						<div class="d-flex justify-content-end">
-							{{ form_row(emailForm.send) }}
-						</div>
-						{{ form_end(emailForm) }}
-					</div>
-				</div>
-			</div>
+	<div class="container">
+		<br>
+		<div class="section-title mb-0">
+			<h3>Eine Nachricht an den Kellner senden</h3>
 		</div>
-	</section>
+		<br>
+		<p>Möchten Sie dem Kellner weitere Wünsche zu Ihrer Bestellungen mitteilen? Auf dieser Seite haben Sie mit unserem Kontaktformular die Möglichkeit mit unserem qualifizierten Servicepersonal in Kontakt zu treten. Egal ob etwas fehlt, oder es sich um extra Wünsche bei unseren Gerichten handelt. Auch Lob Anregungen und Kritik sind gern gesehen. Zögern Sie nicht uns zu kontaktieren.
+		</p>
+		{{ form(emailForm) }}
+		</div>
+	</div>
 {% endblock %}

@@ -27,6 +27,9 @@ class MailerController extends AbstractController
             ])
             ->add('send', SubmitType::class, [
                 'label' => 'Absenden',
+                'attr' => [
+                    'class' => 'btn btn-outline-danger float-right',
+                ],
             ])
             ->getForm();
 
