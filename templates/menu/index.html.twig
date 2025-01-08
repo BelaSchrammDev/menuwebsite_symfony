@@ -10,29 +10,37 @@
 			</div>
 			<div class="container">
 				<ul class="playlist-filter controls">
-					<li class="control" data-filter=".Getränk">Getränke</li>
-					<li class="control" data-filter=".Vorspeise">Vorspeisen</li>
-					<li class="control" data-filter=".Hauptspeise">Hauptspeisen</li>
-					<li class="control" data-filter=".Nachspeise">Desserts</li>
-					<li class="control" data-filter="all">Alle Gerichte</li>
+					{% for kategorie in kategories %}
+						<li class="control" data-filter=".{{ kategorie }}">{{ kategorie }}</li>
+					{% endfor %}
+					{% if withAllLink %}
+						<a href="{{ path('app_menu') }}">Alle Gerichte</a>
+					{% else %}
+						<li class="control" data-filter="all">
+							Alle Gerichte
+						</li>
+					{% endif %}
 				</ul>
-			</div>                                              
+			</div>
 			<div class="clearfix"></div>
 			<div class="row playlist-area">
 
-            {% for gericht in gerichte %}
-				<div class="mix col-lg-3 col-md-4 col-sm-6 {{ gericht.kategorie }}">
-					<div class="playlist-item">
-					    {% if gericht.picture %}
-						    <img src="{{ asset('img/recipes/' ~ gericht.picture) }}">
-					    {% endif %}
-                        <h5>{{ gericht.name }} - {{ '%.2f'|format(gericht.preis) }}€</h5>
-                        <p>{{ gericht.beschreibung }}</p>
-                        <p>BestNr. {{ gericht.id }}</p>
-						<a href="{{ path('app_order.create', { id: gericht.id }) }}" class="btn btn-outline-danger">Bestellen</a>
+				{% for gericht in gerichte %}
+					<div class="mix col-lg-3 col-md-4 col-sm-6 {{ gericht.kategorie }}">
+						<div class="playlist-item">
+							{% if gericht.picture %}
+								<img src="{{ asset('img/recipes/' ~ gericht.picture) }}">
+							{% endif %}
+							<h5>{{ gericht.name }}
+								-
+								{{ '%.2f'|format(gericht.preis) }}€</h5>
+							<p>{{ gericht.beschreibung }}</p>
+							<p>BestNr.
+								{{ gericht.id }}</p>
+							<a href="{{ path('app_order.create', { id: gericht.id }) }}" class="btn btn-outline-danger">Bestellen</a>
+						</div>
 					</div>
-				</div>
-            {% endfor %}
+				{% endfor %}
 			</div>
 		</div>
 	</section>

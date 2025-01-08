@@ -16,6 +16,15 @@ class GerichtRepository extends ServiceEntityRepository
         parent::__construct($registry, Gericht::class);
     }
 
+    public function findAllByKategorieID($kategorie): array
+    {
+        return $this->createQueryBuilder('g')
+            ->andWhere('g.kategorie = :kategorie')
+            ->setParameter('kategorie', $kategorie)
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Gericht[] Returns an array of Gericht objects
     //     */
